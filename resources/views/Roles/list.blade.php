@@ -76,10 +76,11 @@
                             <div class="col-6">
                                 @foreach ($permisos as $item)
                                     <div class="form-check">
-                                        <input  value="{{$item->id}}" class="form-check-input" name="permisos_listado[]"
-                                            type="checkbox" id="defaultCheck1">
+                                        <input {{ $item->id == 1 ? 'checked' : '' }} value="{{ $item->id }}"
+                                            class="form-check-input" name="permisos_listado[]" type="checkbox"
+                                            id="defaultCheck1">
                                         <label class="form-check-label" for="defaultCheck1">
-                                            {{$item->name}}
+                                            {{ $item->name }}
                                         </label>
                                     </div>
                                 @endforeach

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -22,7 +24,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        return view('Users.create', compact('roles'));
     }
 
     /**
@@ -30,7 +33,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->document = $request ->input('documento');
+        $user->name = $request ->input('nombre');
+        $user->lastname = $request ->input('apellidos');
+        $user->role = $request ->input('rol');
+        $user->email = $request ->input('correo');
+        $user->password = Hash::make($request->input('contrasena'));
+        $user->numberPhone = $request ->input('telefono');
+        $user->company = $request ->input('compania');
+        $user->estado = 1;
+
+        $roleExisting = Role::find($request ->input('rol'));
+        if($roleExisting){
+            $user->save();
+            return response()->json($user);
+        }else{
+            return response()->json($user);
+        }
+
+
     }
 
     /**

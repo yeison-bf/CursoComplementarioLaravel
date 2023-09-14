@@ -16,7 +16,6 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
 
-Route::get('/users', [UserController::class, 'index'])->name('users.show.list');
 Route::get('/inicio', [HomeController::class, 'index'])->name('inicio');
 Route::get('/home', [HomeController::class, 'index'])->name('inicio');
 
@@ -27,7 +26,11 @@ Route::post('/roles', [RoleController::class, 'store'])->name('role.create');
 
 
 
+// Rutas del usuario
 
+Route::get('/users', [UserController::class, 'index'])->name('users.show.list');
+Route::get('/usersCreate', [UserController::class, 'create'])->name('users.show.create');
+Route::post('/users', [UserController::class, 'store'])->name('users.create');
 
 
 

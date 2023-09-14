@@ -3,6 +3,11 @@
 @section('title_module', 'Usuarios')
 
 @section('content')
+<div class="row">
+    <div class="col-12">
+        <a class="btn btn-primary" href="{{route('users.show.create')}}">Nuevo</a>
+    </div>
+</div>
     <table class="table table-bordered nowrap" style="width:100%" id="tableUsers">
         <thead>
             <th>Documento</th>
