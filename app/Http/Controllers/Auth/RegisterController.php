@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Usuario;
 use App\Providers\RouteServiceProvider;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -57,17 +56,21 @@ class RegisterController extends Controller
         ]);
     }
 
-  
-    protected function create(Request $request)
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\Models\User
+     */
+    protected function create(array $data)
     {
-        $users = new Usuario();
-        $users->name = $request->input('name');
-        $users->lastname = $request->input('lastname');
-        $users->email = $request->input('email');
-        $users->password = Hash::make($request->input('password'));
+        return User::create([
+            'document' => $data['document'],
+            'fullname' => $data['name'],
+            'role' => $data['role'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
 
-        $users->save();
-        
-        return response()->json($users);
     }
 }
